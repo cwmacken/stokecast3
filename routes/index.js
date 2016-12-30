@@ -5,12 +5,23 @@ var https = require('https');
 var http = require('http');
 var firebase = require("firebase");
 var request = require('request');
+var tides = require('../lib/tides');
 
 // GET /server/data
 router.get('/data', function(req, res){
     res.json({
         text: "get request is good!"
     })
+});
+
+router.get('/tide', function(req, res){
+
+    tides.tidecheck(function(response){
+        res.json({
+            text: response
+        })
+    });
+
 });
 
 // POST /server/postData
