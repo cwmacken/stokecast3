@@ -15,9 +15,6 @@ export default class Navbarcomp extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/brokenlink">
-                <NavItem eventKey={1} >Error</NavItem>
-            </LinkContainer>
             <LinkContainer to="/signup">
                 <NavItem eventKey={2}>Signup</NavItem>
             </LinkContainer>

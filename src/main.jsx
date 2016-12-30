@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Index from './components/index/index.jsx';
 import Signup from './components/signup/signup.jsx';
 import Error from './components/error/error.jsx'
+import Location from './components/location/location.jsx'
 import { Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
@@ -29,7 +30,7 @@ ReactDOM.render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Index}/>
+        <IndexRoute component={Location}/>
         <Route path="/signup" component={Signup}/>
         <Route path="*" component={Error}/>
       </Route>
