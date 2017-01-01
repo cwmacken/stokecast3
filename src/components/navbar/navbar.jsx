@@ -13,13 +13,6 @@ export default class Navbarcomp extends React.Component {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to="/signup">
-                <NavItem eventKey={2}>Signup</NavItem>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
       </Navbar>
     );
   }
