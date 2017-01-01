@@ -33,17 +33,17 @@ class Location extends React.Component {
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.swellModel} responsive />
+              <Image className="center-block" src={this.state.swellModel} alt="Error Loading Swell Model" responsive />
             </Col>
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.tideModel} responsive />
+              <Image className="center-block" src={this.state.tideModel} alt="Error Loading Tide Model" responsive />
             </Col>
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.windModel} responsive />
+              <Image className="center-block" src={this.state.windModel} alt="Error Loading Wind Model"  responsive />
             </Col>
           </Row >
         </Grid>
