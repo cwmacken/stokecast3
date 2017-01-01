@@ -4,7 +4,9 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     consolidate = require('consolidate'),
     routes = require('./routes/index'),
-    config = require('./config');
+    config = require('./config'),
+    tides = require('./lib/tides'),
+    jobs = require('./cronJobs/jobs');
 
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
@@ -21,11 +23,13 @@ app.use(bodyParser.json());
 
 app.use('/server', routes);
 
+app.use('/tidedata', express.static(__dirname + '/tidedata'));
+
 // TODO: this may cause problems, prob need to remove this REMOVE????
 app.set('port', process.env.PORT || 9090);
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
-console.log("in dev mode", isDeveloping)
+
 console.log("in prod mode", !isDeveloping)
 
 // TODO: this may cause problems -REMOVE????
@@ -52,7 +56,35 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
     res.end();
   });
+
+  if(config.testTide){
+    // fetch LA tide when app starts
+    console.log("config.testTide set to True")
+    tides.getTideLa(function(response){
+          if(response === null){
+            console.log("LA tide graph fetch successful")
+          }else{
+            console.log("ERROR: LA tide graph fetch error", response)
+          }
+      });
+  }else{
+    console.log("config.testTide set to False")
+  }
 } else {
+
+  // fetch LA tide when app starts
+  tides.getTideLa(function(response){
+        if(response === null){
+          console.log("LA tide graph fetch successful")
+        }else{
+          console.log("ERROR: LA tide graph fetch error", response)
+        }
+  });
+
+  jobs.setTideCronJobs(function(){
+    console.log("Tide Cron Job Set")
+  })
+
   app.use(express.static(__dirname + '/dist'));
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

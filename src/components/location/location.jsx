@@ -11,7 +11,8 @@ class Location extends React.Component {
     this.state = {
       title: "Los Angeles",
       swellModel: "http://cdip.ucsd.edu/recent/model_images/socal_now.png",
-      windModel: "http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png"
+      windModel: "http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png",
+      tideModel: "/tidedata/sm_tide.png"
     };
 
   }
@@ -32,12 +33,17 @@ class Location extends React.Component {
           </Row >
           <Row>
             <Col xs={12}>
-              <Image src={this.state.swellModel} responsive />
+              <Image className="center-block" src={this.state.swellModel} responsive />
             </Col>
           </Row >
           <Row>
             <Col xs={12}>
-              <Image src={this.state.windModel} responsive />
+              <Image className="center-block" src={this.state.tideModel} responsive />
+            </Col>
+          </Row >
+          <Row>
+            <Col xs={12}>
+              <Image className="center-block" src={this.state.windModel} responsive />
             </Col>
           </Row >
         </Grid>

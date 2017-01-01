@@ -16,6 +16,8 @@ config.firebase = {
   authDomain: "carneasada-f0617.firebaseapp.com"
 }
 
+config.testTide = false;
+
 // Set Values
 if(currentEnv === 'production'){
 

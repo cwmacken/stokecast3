@@ -18,8 +18,18 @@ Run production version
 
 `npm run prod`
 
+PEOPLE TO CRED
 
 [Trello board](https://trello.com/b/w3ifsQFm/stokecast-3)
 
 
 [Cheerio](https://github.com/cheeriojs/cheerio)
+
+
+http://momentjs.com/docs/#/parsing/utc/
+
+http://cdip.ucsd.edu/recent/model_images/socal_now.png
+
+http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png
+
+https://github.com/kelektiv/node-cron

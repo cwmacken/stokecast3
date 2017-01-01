@@ -14,16 +14,6 @@ router.get('/data', function(req, res){
     })
 });
 
-router.get('/tide', function(req, res){
-
-    tides.tidecheck(function(response){
-        res.json({
-            text: response
-        })
-    });
-
-});
-
 // POST /server/postData
 router.post('/postData', function(req, res){
 
