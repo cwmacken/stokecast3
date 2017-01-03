@@ -1,7 +1,21 @@
 import React from 'react';
-import { Button, Grid, Row, Col , Image } from 'react-bootstrap';
+import { Button, Grid, Row, Col , Image, Panel } from 'react-bootstrap';
 import { connect, getState } from 'react-redux'
 import Navbarcomp from '../navbar/navbar.jsx'
+require("./location.less")
+
+const swellModelTitle = (
+  <h3>Swell Map</h3>
+);
+
+const tideTitle = (
+  <h3>Tide Map</h3>
+);
+
+const windModelTitle = (
+  <h3>Wind Map</h3>
+);
+
 
 class Location extends React.Component {
 
@@ -33,17 +47,23 @@ class Location extends React.Component {
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.swellModel} alt="Error Loading Swell Model" responsive />
+              <Panel header={swellModelTitle}>
+                <Image className="center-block bottomPadding10" src={this.state.swellModel} alt="Error Loading Swell Model" responsive />
+              </Panel>
             </Col>
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.tideModel} alt="Error Loading Tide Model" responsive />
+              <Panel header={tideTitle}>
+                <Image className="center-block bottomPadding10" src={this.state.tideModel} alt="Error Loading Tide Model" responsive />
+              </Panel>
             </Col>
           </Row >
           <Row>
             <Col xs={12}>
-              <Image className="center-block" src={this.state.windModel} alt="Error Loading Wind Model"  responsive />
+              <Panel header={windModelTitle}>
+                  <Image className="center-block" src={this.state.windModel} alt="Error Loading Wind Model"  responsive />
+              </Panel>
             </Col>
           </Row >
         </Grid>
