@@ -6,7 +6,7 @@ import { Navbar, Nav, NavItem  } from 'react-bootstrap';
 export default class Navbarcomp extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect>
+      <Navbar collapseOnSelect fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <Link href="/">Stokecast</Link>

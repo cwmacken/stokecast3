@@ -39,28 +39,24 @@ class Location extends React.Component {
     return (
       <div>
         <Navbarcomp />
-        <Grid>
+        <Grid fluid>
           <Row>
             <Col xs={12}>
-              <h1 className="text-center">{this.state.title}</h1>
+              <h1 className="text-center mdTitle">{this.state.title}</h1>
             </Col>
           </Row >
           <Row>
-            <Col xs={12}>
+            <Col xs={12} md={6}  >
               <Panel header={swellModelTitle}>
                 <Image className="center-block bottomPadding10" src={this.state.swellModel} alt="Error Loading Swell Model" responsive />
               </Panel>
             </Col>
-          </Row >
-          <Row>
-            <Col xs={12}>
+            <Col xs={12} md={6}>
               <Panel header={tideTitle}>
                 <Image className="center-block bottomPadding10" src={this.state.tideModel} alt="Error Loading Tide Model" responsive />
               </Panel>
             </Col>
-          </Row >
-          <Row>
-            <Col xs={12}>
+            <Col xs={12} md={6}>
               <Panel header={windModelTitle}>
                   <Image className="center-block" src={this.state.windModel} alt="Error Loading Wind Model"  responsive />
               </Panel>
