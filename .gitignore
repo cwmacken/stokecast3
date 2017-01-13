@@ -28,5 +28,3 @@ node_modules
 dist
 
 .DS_Store
-
-tidedata/sm_tide.png
