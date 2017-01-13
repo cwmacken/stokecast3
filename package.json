@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node app.js",
     "tide": "node ./helpers/tide.js",
-    "pm": "NODE_ENV=production pm2 start app.js",
+    "pm": "NODE_ENV=production pm2 start app.js --name “Stokecast",
     "prod": "NODE_ENV=production node app.js",
     "build": "rimraf dist && webpack --config ./webpack.production.config.js --progress --profile"
   },
