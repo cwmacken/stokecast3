@@ -20,8 +20,6 @@ Run production version
 
 PEOPLE TO CRED
 
-[Trello board](https://trello.com/b/w3ifsQFm/stokecast-3)
-
 
 [Cheerio](https://github.com/cheeriojs/cheerio)
 
