@@ -93,7 +93,6 @@ if (isDeveloping) {
 
 var server = app.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + server.address().port);
-    // TODO: maybe add pushover test here?
 });
 
 module.exports = app;
