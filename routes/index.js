@@ -9,23 +9,23 @@ var tides = require('../lib/tides');
 
 // GET /server/data
 router.get('/data', function(req, res){
-    res.json({
-        text: "get request is good!"
-    })
+		res.json({
+				text: "get request is good!"
+		})
 });
 
 // POST /server/postData
 router.post('/postData', function(req, res){
 
-    if(req.body.on === true){
-      res.json({
-          text:"its working, test: 1"
-      })
-    }else{
-      res.json({
-          text:"its working, test: 2"
-      })
-    }
+		if(req.body.on === true){
+			res.json({
+					text:"its working, test: 1"
+			})
+		}else{
+			res.json({
+					text:"its working, test: 2"
+			})
+		}
 });
 
 module.exports = router;
