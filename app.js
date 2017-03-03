@@ -23,16 +23,14 @@ app.use(bodyParser.json());
 
 app.use('/server', routes);
 
-app.use('/tidedata', express.static(__dirname + '/tidedata'));
+app.use('/cacheddata', express.static(__dirname + '/cacheddata'));
 
-// TODO: this may cause problems, prob need to remove this REMOVE????
 app.set('port', process.env.PORT || 9090);
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
 console.log("in prod mode", !isDeveloping)
 
-// TODO: this may cause problems -REMOVE????
 const port = isDeveloping ? 9090 : process.env.PORT;
 
 if (isDeveloping) {

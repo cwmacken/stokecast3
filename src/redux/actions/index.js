@@ -2,11 +2,43 @@ var Firebase = require("firebase")
 var config = require("../../../config")
 var axios = require('axios')
 
-// TODO: NEED TO MOVE THIS TO STARTUP SCRIPT
 Firebase.initializeApp(config.firebase);
 
 module.exports = {
     // called at app start
+    getSwellData: function() {
+        return function(dispatch, getState) {
+            const currentState = getState();
+
+            if (currentState.swell.data.length === 0) {
+
+                axios.post('/server/swellData', {
+                        on: currentState
+                    })
+                    .then(function(response) {
+
+                        // TODO: check for status ok
+
+                        dispatch({
+                            type: "RECORDSWELL",
+                            swellData: response.data
+                        })
+                    })
+                    .catch(function(error) {
+
+                        console.log(error)
+                        // dispatch({
+                        //     type: "POSTRESPONSE",
+                        //     postText: "error"
+                        // })
+                    });
+
+
+            }
+
+        }
+    },
+
     createAccount: function(email, password) {
         return function(dispatch, getState) {
 

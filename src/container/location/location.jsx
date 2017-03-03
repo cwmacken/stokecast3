@@ -9,6 +9,9 @@ import {
 } from 'react-bootstrap';
 import {connect, getState} from 'react-redux'
 import Navbarcomp from '../../components/navbar/navbar.jsx'
+import Header from '../../components/header/header.jsx'
+import Timeframe from '../../components/timeFrame/timeFrame.jsx'
+import { Link } from 'react-router'
 require("./location.less")
 
 const swellModelTitle = (
@@ -27,12 +30,13 @@ class Location extends React.Component {
 
     constructor(props) {
         super(props);
-
+        // Consider caching cdip and sccoos
+        // need to credit everyone, links and such
         this.state = {
             title: "Los Angeles",
             swellModel: "http://cdip.ucsd.edu/recent/model_images/socal_now.png",
             windModel: "http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png",
-            tideModel: "/tidedata/sm_tide.png"
+            tideModel: "/cacheddata/tidedata/sm_tide.png"
         };
 
     }
@@ -46,11 +50,8 @@ class Location extends React.Component {
             <div>
                 <Navbarcomp/>
                 <Grid fluid>
-                    <Row>
-                        <Col xs={12}>
-                            <h1 className="text-center mdTitle">{this.state.title}</h1>
-                        </Col>
-                    </Row >
+                    <Header title={this.state.title} />
+                    <Timeframe shortTerm={true}/>
                     <Row>
                         <Col xs={12} md={6}>
                             <Panel header={swellModelTitle}>

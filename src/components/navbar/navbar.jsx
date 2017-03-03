@@ -9,7 +9,7 @@ export default class Navbarcomp extends React.Component {
       <Navbar collapseOnSelect fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link href="/">Stokecast</Link>
+            <Link to="/">Stokecast</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
