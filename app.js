@@ -6,6 +6,7 @@ var express = require('express'),
     routes = require('./routes/index'),
     config = require('./config'),
     tides = require('./lib/tides'),
+	swell = require('./lib/swell'),
     jobs = require('./cronJobs/jobs');
 
 const webpack = require('webpack');
@@ -56,7 +57,7 @@ if (isDeveloping) {
     });
 
     if (config.testTide) {
-        // fetch LA tide when app starts
+        // fetch LA tide and swell when app starts
         console.log("config.testTide set to True")
         tides.getTideLa(function(response) {
             if (response === null) {
@@ -65,6 +66,17 @@ if (isDeveloping) {
                 console.log("ERROR: LA tide graph fetch error", response)
             }
         });
+
+        swell.getSwellData(function(response){
+
+        	if (response === null) {
+        			console.log("LA swell data fetch successful")
+        	} else {
+        			console.log("ERROR: LA swell data fetch ", response)
+        	}
+
+        })
+
     } else {
         console.log("config.testTide set to False")
     }
@@ -79,8 +91,23 @@ if (isDeveloping) {
         }
     });
 
+    // Fetch LA Swell when app starts
+    swell.getSwellData(function(response){
+
+    	if (response === null) {
+    			console.log("LA swell data fetch successful")
+    	} else {
+    			console.log("ERROR: LA swell data fetch ", response)
+    	}
+
+    })
+
     jobs.setTideCronJobs(function() {
         console.log("Tide Cron Job Set")
+    })
+
+    jobs.setSwellCronJobs(function() {
+        console.log("Swell Cron Job Set")
     })
 
     app.use(express.static(__dirname + '/dist'));

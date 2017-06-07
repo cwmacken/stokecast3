@@ -12,20 +12,17 @@ import Navbarcomp from '../../components/navbar/navbar.jsx'
 import Header from '../../components/header/header.jsx'
 import Timeframe from '../../components/timeFrame/timeFrame.jsx'
 import {Link} from 'react-router'
-// require("./location.less")
-// http://recharts.org/#/en-US/
+require("./longterm.less")
+
+// TODO: consider http://recharts.org/#/en-US/
 import {getSwellData} from '../../redux/actions'
 
-const swellModelTitle = (
-    <h3>Swell Map</h3>
+const swellTitle = (
+    <h3>Los Angeles Surf Height</h3>
 );
 
-const tideTitle = (
-    <h3>Tide Map</h3>
-);
-
-const windModelTitle = (
-    <h3>Wind Map</h3>
+const noaaTitle = (
+    <h3>NOAA 7-Day Model</h3>
 );
 
 class Longterm extends React.Component {
@@ -35,9 +32,11 @@ class Longterm extends React.Component {
 
         this.state = {
             title: "Los Angeles",
+            titleSurfHeight: "Los Angeles Surf Height",
             swellModel: "http://cdip.ucsd.edu/recent/model_images/socal_now.png",
             windModel: "http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png",
-            tideModel: "/tidedata/sm_tide.png"
+            tideModel: "/tidedata/sm_tide.png",
+            noaaLongTerm: "http://cdip.ucsd.edu/recent/forecast/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=PDT&units=english"
         };
 
         this.props.getSwellData()
@@ -88,7 +87,7 @@ class Longterm extends React.Component {
 
                     var displayHeight = Math.floor(avg)
 
-                    var msg = dayCheck + " AM Swell: " + displayHeight + " ft"
+                    var msg = dayCheck + " AM : " + displayHeight + " ft"
 
                     return (
                         <h3 key={i}>{msg}</h3>
@@ -108,10 +107,10 @@ class Longterm extends React.Component {
 
                     var displayHeight = Math.floor(avg)
 
-                    var msg = dayCheck + " PM Swell: " + displayHeight + " ft"
+                    var msg = dayCheck + " PM : " + displayHeight + " ft"
 
                     return (
-                        <h3 key={i}>{msg}</h3>
+                        <h3 className="pm" key={i}>{msg}</h3>
                     )
 
                 }
@@ -138,8 +137,15 @@ class Longterm extends React.Component {
                     <Header title={this.state.title}/>
                     <Timeframe shortTerm={false}/>
                     <Row>
-                        <Col xs={12} md={6} className="text-center">
-                            {this.displaySwellData()}
+                        <Col xs={12} sm={6} md={4} lg={3}className="text-center">
+                            <Panel header={swellTitle}>
+                                {this.displaySwellData()}
+                            </Panel>
+                        </Col>
+                        <Col xs={12} sm={6} md={8} lg={9}className="text-center">
+                            <Panel header={noaaTitle}>
+                                <Image className="center-block bottomPadding10" src={this.state.noaaLongTerm} alt="Error Loading Tide Model" responsive/>
+                            </Panel>
                         </Col>
                     </Row>
 
