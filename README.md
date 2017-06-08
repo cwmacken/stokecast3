@@ -31,3 +31,5 @@ http://cdip.ucsd.edu/recent/model_images/socal_now.png
 http://www.sccoos.org/data/coamps/analyses/searange/inhr00.png
 
 https://github.com/kelektiv/node-cron
+
+http://www.spitcast.com/api/docs/
