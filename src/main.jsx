@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Error from './container/error/error.jsx'
 import Location from './container/location/location.jsx'
 import LongTerm from './container/longTerm/longTerm.jsx'
+import About from './container/about/about.jsx'
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router'
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk';
@@ -26,6 +27,7 @@ ReactDOM.render((
         <Router history={browserHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Location}/>
+				<Route path="/about" component={About}/>
 				<Route path="/longterm" component={LongTerm}/>
                 <Route path="*" component={Error}/>
             </Route>
