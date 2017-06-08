@@ -30,5 +30,3 @@ dist
 .DS_Store
 
 tidedata/sm_tide.png
-
-cacheddata/swelldata/swelldata.json
