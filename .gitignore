@@ -30,3 +30,4 @@ dist
 .DS_Store
 
 tidedata/sm_tide.png
+swelldata/swelldata.json
