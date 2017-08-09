@@ -1,6 +1,8 @@
 # Stokecast
 Stop relying in Surflies educate yourself and make your own decisions
 
+(Still a work in progress)
+
 ### Start the boilerplate
 
 `npm start`
