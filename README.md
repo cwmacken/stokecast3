@@ -1,5 +1,5 @@
 # Stokecast
-Stop relying in Surflies. educate yourself and make your own decisions
+Stop relying in Surflies educate yourself and make your own decisions
 
 ### Start the boilerplate
 
