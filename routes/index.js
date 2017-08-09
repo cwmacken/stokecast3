@@ -7,31 +7,37 @@ var firebase = require("firebase");
 var request = require('request');
 var tides = require('../lib/tides');
 var swell = require('../cacheddata/swelldata/swelldata.json')
+var wind = require('../cacheddata/winddata/winddata.json')
 
 // GET /server/data
 router.get('/data', function(req, res) {
-    res.json({
-        text: "get request is good!"
-    })
+  res.json({
+    text: "get request is good!"
+  })
 });
 
 // POST /server/postData
 router.post('/postData', function(req, res) {
 
-    if (req.body.on === true) {
-        res.json({
-            text: "its working, test: 1"
-        })
-    } else {
-        res.json({
-            text: "its working, test: 2"
-        })
-    }
+  if (req.body.on === true) {
+    res.json({
+      text: "its working, test: 1"
+    })
+  } else {
+    res.json({
+      text: "its working, test: 2"
+    })
+  }
 });
 
 
 router.post('/swellData', function(req, res) {
-    res.json(swell)
+  //  QUESTION: maybe i can add the module here
+  res.json(swell)
+});
+
+router.post('/windData', function(req, res) {
+  res.json(wind)
 });
 
 module.exports = router;

@@ -1,13 +1,14 @@
 var express = require('express'),
-    path = require('path'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    consolidate = require('consolidate'),
-    routes = require('./routes/index'),
-    config = require('./config'),
-    tides = require('./lib/tides'),
-	swell = require('./lib/swell'),
-    jobs = require('./cronJobs/jobs');
+  path = require('path'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  consolidate = require('consolidate'),
+  routes = require('./routes/index'),
+  config = require('./config'),
+  tides = require('./lib/tides'),
+  conditions = require('./lib/conditions'),
+  jobs = require('./cronJobs/jobs')
+pushover = require('./lib/pushover');
 
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
@@ -35,89 +36,118 @@ console.log("in prod mode", !isDeveloping)
 const port = isDeveloping ? 9090 : process.env.PORT;
 
 if (isDeveloping) {
-    const compiler = webpack(wpConfig);
-    const middleware = webpackMiddleware(compiler, {
-        publicPath: wpConfig.output.publicPath,
-        contentBase: 'src',
-        stats: {
-            colors: true,
-            hash: false,
-            timings: true,
-            chunks: false,
-            chunkModules: false,
-            modules: false
-        }
-    });
-
-    app.use(middleware);
-    app.use(webpackHotMiddleware(compiler));
-    app.get('*', function response(req, res) {
-        res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
-        res.end();
-    });
-
-    if (config.testTide) {
-        // fetch LA tide and swell when app starts
-        console.log("config.testTide set to True")
-        tides.getTideLa(function(response) {
-            if (response === null) {
-                console.log("LA tide graph fetch successful")
-            } else {
-                console.log("ERROR: LA tide graph fetch error", response)
-            }
-        });
-
-        swell.getSwellData(function(response){
-
-        	if (response === null) {
-        			console.log("LA swell data fetch successful")
-        	} else {
-        			console.log("ERROR: LA swell data fetch ", response)
-        	}
-
-        })
-
-    } else {
-        console.log("config.testTide set to False")
+  const compiler = webpack(wpConfig);
+  const middleware = webpackMiddleware(compiler, {
+    publicPath: wpConfig.output.publicPath,
+    contentBase: 'src',
+    stats: {
+      colors: true,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false
     }
+  });
+
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+  app.get('*', function response(req, res) {
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+    res.end();
+  });
+
+  if (config.testTide) {
+    // fetch LA tide and swell when app starts
+    console.log("config.testTide set to True")
+    tides.getTideLa(function(response) {
+      if (response === null) {
+        console.log("LA tide graph fetch successful")
+      } else {
+        console.log("ERROR: LA tide graph fetch error", response)
+      }
+    });
+
+    conditions.getSwellData(function(response) {
+
+      if (response === null) {
+        console.log("LA swell data fetch successful")
+      } else {
+        console.log("ERROR: LA swell data fetch ", response)
+      }
+
+    })
+
+  } else {
+    console.log("config.testTide set to False")
+  }
 } else {
 
-    // fetch LA tide when app starts
-    tides.getTideLa(function(response) {
-        if (response === null) {
-            console.log("LA tide graph fetch successful")
-        } else {
-            console.log("ERROR: LA tide graph fetch error", response)
-        }
-    });
+  // Check if Pushover is set up
+  pushover.checkKeysFile(function(response) {
 
-    // Fetch LA Swell when app starts
-    swell.getSwellData(function(response){
+    if (response) {
 
-    	if (response === null) {
-    			console.log("LA swell data fetch successful")
-    	} else {
-    			console.log("ERROR: LA swell data fetch ", response)
-    	}
+      console.log("pushover tokens exist and loaded")
 
-    })
+    } else {
 
-    jobs.setTideCronJobs(function() {
-        console.log("Tide Cron Job Set")
-    })
+      console.log("pushover tokens don't exist-> no alerts for you")
 
-    jobs.setSwellCronJobs(function() {
-        console.log("Swell Cron Job Set")
-    })
+    }
 
-    app.use(express.static(__dirname + '/dist'));
-    app.get('*', function response(req, res) {
-        res.sendFile(path.join(__dirname, 'dist/index.html'));
-    });
+  })
+
+  // fetch LA tide when app starts
+  tides.getTideLa(function(response) {
+    if (response === null) {
+      console.log("LA tide graph fetch successful")
+    } else {
+      console.log("ERROR: LA tide graph fetch error", response)
+    }
+  });
+
+  // Fetch LA Swell when app starts
+  conditions.getSwellData(function(response) {
+
+    if (response === null) {
+      console.log("LA swell data fetch successful")
+    } else {
+      console.log("ERROR: LA swell data fetch ", response)
+    }
+
+  })
+
+  // Fetch LA Wind when app starts
+  conditions.getWindData(function(response) {
+    if (response === null) {
+      console.log("LA Wind fetch successful")
+
+    } else {
+      console.log("ERROR: LA Swell fetch error", response)
+    }
+  });
+
+  jobs.setTideCronJobs(function() {
+    console.log("Tide Cron Job Set")
+  })
+
+  jobs.setSwellCronJobs(function() {
+    console.log("Swell Cron Job Set")
+  })
+
+  jobs.setWindCronJobs(function() {
+    console.log("Wind Cron Job Set")
+  })
+
+  app.use(express.static(__dirname + '/dist'));
+  app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
 }
 
 var server = app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + server.address().port);
+  console.log('Express server listening on port ' + server.address().port);
 });
 
 module.exports = app;

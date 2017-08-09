@@ -15,7 +15,7 @@ import {Link} from 'react-router'
 require("./longterm.less")
 
 // TODO: consider http://recharts.org/#/en-US/
-import {getSwellData} from '../../redux/actions'
+import {getSwellData, getWindData} from '../../redux/actions'
 
 const swellTitle = (
     <h3>Los Angeles Surf Height</h3>
@@ -39,7 +39,10 @@ class Longterm extends React.Component {
             noaaLongTerm: "http://cdip.ucsd.edu/recent/forecast/buoy_ww3.gd?stn=071&stream=p1&pub=public&tz=PDT&units=english"
         };
 
+        // THIS IS BEING CALLED ON EVERY LOAD, NEEDS TO BE LAUNCHED ON START
+        // MAYBE NOT
         this.props.getSwellData()
+        this.props.getWindData()
 
     }
 
@@ -49,11 +52,11 @@ class Longterm extends React.Component {
 
     displaySwellData() {
 
-        var dayCheck = null
+        var dayCheck = null;
 
-        var heightArrayAM = []
+        var heightArrayAM = [];
 
-        var heightArrayPM = []
+        var heightArrayPM = [];
 
         const swellData = this.props.swell.map((dataPoint, i) => {
 
@@ -163,6 +166,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getSwellData: (e) => {
             dispatch(getSwellData(e))
+        },
+        getWindData: (e) => {
+            dispatch(getWindData(e))
         }
     }
 }
