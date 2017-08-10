@@ -3,7 +3,9 @@ Stop relying in Surflies educate yourself and make your own decisions
 
 (Still a work in progress)
 
-### Start the boilerplate
+### Getting Started (Dev)
+
+`npm install`
 
 `npm start`
 
@@ -11,6 +13,10 @@ Stop relying in Surflies educate yourself and make your own decisions
 Navigate to [http://localhost:9090/](http://localhost:9090/)
 
 ## Compiling for Production and Running
+
+If you have not done so already
+
+`npm install`
 
 Build the production version
 
@@ -20,11 +26,11 @@ Run production version
 
 `npm run prod`
 
-### Road Map
+### Rough Road Map
 
 https://trello.com/b/w3ifsQFm/stokecast-3
 
-### PEOPLE TO CRED
+### People to credit
 
 
 [Cheerio](https://github.com/cheeriojs/cheerio)
