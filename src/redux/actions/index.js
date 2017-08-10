@@ -50,9 +50,9 @@ module.exports = {
           })
           .then(function(response) {
 
-            // TODO: check for status ok
+            // TODO: check for status ok and show wind forcast
 
-            console.log(response.data)
+            // console.log(response.data)
 
             dispatch({
               type: "RECORDWIND",

@@ -5,8 +5,8 @@ var conditions = require('../lib/conditions');
 var exports = module.exports = {
 
   setTideCronJobs: function(cb) {
-    new CronJob('0 0 0 * * *', function() {
-      console.log('You will see this message at 12 am LA time - starting Tide Job');
+    new CronJob('0 0 1 * * *', function() {
+      console.log('You will see this message at 1 am LA time - starting Tide Job');
       tides.getTideLa(function(response) {
         if (response === null) {
           console.log("LA tide graph fetch successful")
@@ -19,8 +19,8 @@ var exports = module.exports = {
   },
 
   setSwellCronJobs: function(cb) {
-    new CronJob('0 0 0 * * *', function() {
-      console.log('You will see this message at 12 am LA time - starting Swell Job');
+    new CronJob('0 0 1 * * *', function() {
+      console.log('You will see this message at 1 am LA time - starting Swell Job');
       conditions.getSwellData(function(response) {
         if (response === null) {
           console.log("LA Swell fetch successful")
@@ -34,8 +34,8 @@ var exports = module.exports = {
   },
 
   setWindCronJobs: function(cb) {
-    new CronJob('0 0 0 * * *', function() {
-      console.log('You will see this message at 12 am LA time - starting Wind Job');
+    new CronJob('0 0 1 * * *', function() {
+      console.log('You will see this message at 1 am LA time - starting Wind Job');
       conditions.getWindData(function(response) {
         if (response === null) {
           console.log("LA Wind fetch successful")
