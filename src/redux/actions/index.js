@@ -12,7 +12,7 @@ module.exports = {
 
       if (currentState.swell.data.length === 0) {
 
-        axios.post('/server/swellData', {
+        axios.get('/cacheddata/swelldata/swelldata.json', {
             on: currentState
           })
           .then(function(response) {

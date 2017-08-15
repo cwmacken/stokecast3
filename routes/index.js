@@ -30,12 +30,13 @@ router.post('/postData', function(req, res) {
   }
 });
 
-
+// NOT CURRENTLY USED, WILL BE USED WHEN DB IS CREATED
 router.post('/swellData', function(req, res) {
   //  QUESTION: maybe i can add the module here
   res.json(swell)
 });
 
+// NOT CURRENTLY USED, WILL BE USED WHEN DB IS CREATED
 router.post('/windData', function(req, res) {
   res.json(wind)
 });
